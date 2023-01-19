@@ -8,7 +8,7 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="AddGadget" Text="Add Gadget" Clicked="AddGadget_Clicked"></ToolbarItem>
         <ToolbarItem x:Name="ViewGadgets" Text="View Gadgets" Clicked="viewGadgets_Clicked"></ToolbarItem>
-        <ToolbarItem x:Name="Settings" Text="Settings" Clicked="Settings_Clicked"></ToolbarItem>
+        <ToolbarItem x:Name="Settings" Text="Settings" Clicked="Settings_Clicked" Order="Secondary"></ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>

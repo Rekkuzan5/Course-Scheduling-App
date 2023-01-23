@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CourseScheduleApp.Views.TermAdd">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="SaveTerm" Text="Save" Clicked="SaveTerm_Clicked"></ToolbarItem>
+        <ToolbarItem x:Name="CancelTerm" Text="Cancel" Clicked="CancelTerm_Clicked"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Term Name" 
+				   FontSize="Title"
+				   Margin="10,0,10,0"/>
+            <Editor Placeholder="Enter a Term Name"
+					x:Name="TermName"
+					Margin="10,0,10,0" />
+            <Grid Padding="0,0,0,25">
+                <Label Text="Start Date"
+					   FontSize="Medium"
+					   Grid.Column="0"
+					   Grid.Row="0"
+					   VerticalTextAlignment="Center"
+					   HorizontalTextAlignment="Center"/>
+                <DatePicker x:Name="TermStartDate"
+							DateSelected="TermStartDate_DateSelected"	
+							Grid.Column="1"
+							Grid.Row="0"
+							Margin="0,0,15,0"/>
+                <Label Text="End Date"
+					   FontSize="Medium"
+					   Grid.Column="0"
+					   Grid.Row="1"
+					   VerticalTextAlignment="Center"
+					   HorizontalTextAlignment="Center"/>
+                <DatePicker x:Name="TermEndDate"
+							DateSelected="TermEndDate_DateSelected"		
+							Grid.Column="1"
+							Grid.Row="1"
+							Margin="0,0,15,0"/>
+            </Grid>
+
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>

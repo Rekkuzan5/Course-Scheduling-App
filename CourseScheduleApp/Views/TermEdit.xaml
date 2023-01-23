@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CourseScheduleApp.Views.TermEdit">
+
+            <ContentPage.ToolbarItems>
+                <ToolbarItem x:Name="SaveTerm" Text="Save" Clicked="SaveTerm_Clicked"	></ToolbarItem>
+                <ToolbarItem x:Name="CancelTerm" Text="Cancel" Clicked="CancelTerm_Clicked"	></ToolbarItem>
+                <ToolbarItem x:Name="DeleteTerm" Text="Delete" Clicked="DeleteTerm_Clicked"	></ToolbarItem>
+            </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout>
+
+            <Grid Padding="5" ColumnSpacing="1" RowSpacing="1" BackgroundColor="WhiteSmoke">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Add Placeholder Text if Necessary -->
+                <Label Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">ID</Label>
+                <Entry Text="{Binding Id}" x:Name="TermId" Grid.Row="0" Grid.Column="1" VerticalTextAlignment="Center" IsReadOnly="True"></Entry>
+
+                <Label Grid.Row="1" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Term Name</Label>
+                <Entry Text="{Binding Name}" x:Name="TermName" Grid.Row="1" Grid.Column="1" VerticalTextAlignment="Center"></Entry>
+
+                <Label Grid.Row="2" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Start Date</Label>
+                <DatePicker DateSelected="TermStart_DateSelected" x:Name="TermStart" Grid.Row="2" Grid.Column="1" />
+
+                <Label Grid.Row="3" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">End Date</Label>
+                <DatePicker DateSelected="TermEnd_DateSelected" x:Name="TermEnd" Grid.Row="3" Grid.Column="1"/>
+            </Grid>
+            <Button Text="Click to Check Course Related to the Term" x:Name="CheckCourse" Clicked="CheckCourse_Clicked" VerticalOptions="EndAndExpand"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CourseScheduleApp.Views.AssessmentEdit">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="SaveEdit" Text="Save" Clicked="SaveEdit_Clicked"></ToolbarItem>
+        <ToolbarItem x:Name="CancelEdit" Text="Cancel" Clicked="CancelEdit_Clicked"></ToolbarItem>
+        <ToolbarItem x:Name="DeleteAssess" Text="Delete" Clicked="DeleteAssessment_Clicked"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout>
+
+            <Grid Padding="5" RowSpacing="1" ColumnSpacing="1" BackgroundColor="WhiteSmoke">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Assessment ID</Label>
+                <Entry Text="{Binding Id}" x:Name="AssId" Grid.Row="0" Grid.Column="1" VerticalTextAlignment="Center" IsReadOnly="True"></Entry>
+
+                <Label Grid.Row="1" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Assessment Type</Label>
+                <Picker x:Name="AssessType" Title="AssType" Grid.Row="1" Grid.Column="1">
+                    <Picker.Items>
+                        <x:String>Objective Assessment</x:String>
+                        <x:String>Performance Assessment</x:String>
+                    </Picker.Items>
+                </Picker>
+
+                <Label Grid.Row="2" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Course Name</Label>
+                <Picker x:Name="CourseSelect" Title="CourseSel" ItemDisplayBinding="{Binding CourseName}" Grid.Row="2" Grid.Column="1"/>
+
+                <Label Grid.Row="3" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Due Date</Label>
+                <DatePicker x:Name="DueDate" Grid.Row="3" Grid.Column="1" DateSelected="DueDate_DateSelected"/>
+
+                <Label Grid.Row="4" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Notifications</Label>
+                <Switch x:Name="NotifyEdit" Grid.Row="4" Grid.Column="1" />
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

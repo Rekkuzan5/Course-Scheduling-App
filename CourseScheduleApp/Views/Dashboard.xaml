@@ -3,18 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CourseScheduleApp.Dashboard">
     <NavigationPage.TitleView>
-        <Label Text="Project Skills" FontSize="Medium"></Label>
+        <Label Text="WGU - Terms"/>
     </NavigationPage.TitleView>
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="AddGadget" Text="Add Gadget" Clicked="AddGadget_Clicked"></ToolbarItem>
-        <ToolbarItem x:Name="ViewGadgets" Text="View Gadgets" Clicked="viewGadgets_Clicked"></ToolbarItem>
+        <ToolbarItem x:Name="ViewTerms" Text="View Terms" Clicked="ViewTerms_Clicked"></ToolbarItem>
+        <ToolbarItem x:Name="Courses" Text="Courses" Clicked="Courses_Clicked"></ToolbarItem>
+        <ToolbarItem x:Name="Assessments" Text="Assessments" Clicked="Assessments_Clicked"></ToolbarItem>
         <ToolbarItem x:Name="Settings" Text="Settings" Clicked="Settings_Clicked" Order="Secondary"></ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to C971 Project Dashboard!!!"
+            <Label Text="Welcome Night Owls!"
                 VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                HorizontalOptions="CenterAndExpand"
+				FontAttributes="Bold"
+				FontSize="Large"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

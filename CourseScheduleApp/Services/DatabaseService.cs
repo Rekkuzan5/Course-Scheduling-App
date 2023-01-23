@@ -9,10 +9,14 @@ using CourseScheduleApp.Models;
 
 namespace CourseScheduleApp.Services
 {
-    public static class DatabaseService
+    public class DatabaseService
     {
         private static SQLiteAsyncConnection _db;
         private static SQLiteConnection _dbConnection;
+
+        private static readonly string dbFileName = "wgu_c971.db3";
+        private static readonly string dbFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+        public static string dbPath = Path.Combine(dbFolderPath, dbFileName);
 
         static async Task Init()
         {
@@ -22,243 +26,284 @@ namespace CourseScheduleApp.Services
             }
 
             // Get path to database file
-            var databasePath = Path.Combine(FileSystem.AppDataDirectory, "Gadgets.db");
+            //var databasePath = Path.Combine(FileSystem.AppDataDirectory, "wgu-C971.db");
 
-            _db = new SQLiteAsyncConnection(databasePath);
-            _dbConnection = new SQLiteConnection(databasePath);
+            _db = new SQLiteAsyncConnection(dbPath);
+            _dbConnection = new SQLiteConnection(dbPath);
 
-            await _db.CreateTableAsync<Gadget>();
-            await _db.CreateTableAsync<Widget>();
+            await _db.CreateTableAsync<Term>();
+            await _db.CreateTableAsync<Course>();
+            await _db.CreateTableAsync<Assessment>();
+
+            //var platform = new SQLite.Net.Platform.XamarinAndroid.SQLitePlatformAndroid();
+            //var connection = new SQLite.Net.SQLiteConnection(platform, path);
+            //return connection;
 
         }
-
-        #region Gadgets methods
-        // 8:47 on part 5 webinar
-        public static async Task AddGadget(string name, string color, int inStock, decimal price, DateTime creationDate)
+        public static async Task AddTerm(string name, DateTime start, DateTime end)
         {
             await Init();
-            var gadget = new Gadget()
+            var term = new Term()
             {
-                Name = name,
-                Color = color,
-                InStock = inStock,
-                Price = price,
-                CreationDate = creationDate
+                TermName = name,
+                StartDate = start,
+                EndDate = end,
+                Status = 0,
+                CreationDate = DateTime.Now
             };
 
-            await _db.InsertAsync(gadget);
-
-            var id = gadget.ID;
+            await _db.InsertAsync(term);
+            var ID = term.ID;
         }
-        public static async Task RemoveGadget(int id)
+        public static async Task RemoveTerm(int id)
         {
             await Init();
 
-            await _db.DeleteAsync<Gadget>(id);
+            await _db.DeleteAsync<Term>(id);
         }
-        public static async Task<IEnumerable<Gadget>> GetGadgets()
+        public static async Task<IEnumerable<Term>> GetTerm()
         {
             await Init();
 
-            var gadgets = await _db.Table<Gadget>().ToListAsync();
-            return gadgets;
+            var terms = await _db.Table<Term>().ToListAsync();
+            return terms;
         }
-        public static async Task UpdateGadget(int id, string name, string color, int inStock, decimal price, DateTime creationDate)
+        public static async Task UpdateTerm(int id, string name, DateTime start, DateTime end)
         {
             await Init();
 
-            var gadgetQuery = await _db.Table<Gadget>()
+            var termQuery = await _db.Table<Term>()
                 .Where(i => i.ID == id)
                 .FirstOrDefaultAsync();
 
-            if (gadgetQuery != null)
+            if (termQuery != null)
             {
-                gadgetQuery.Name = name;
-                gadgetQuery.Color = color;
-                gadgetQuery.InStock = inStock;
-                gadgetQuery.Price = price;
-                gadgetQuery.CreationDate = creationDate;
+                termQuery.TermName = name;
+                termQuery.StartDate = start;
+                termQuery.EndDate = end;
 
-                await _db.UpdateAsync(gadgetQuery);
+                await _db.UpdateAsync(termQuery);
             }
         }
-        #endregion
 
-        #region Widgets methods
-        public static async Task AddWidget(int gadgetId, string name, string color, int inStock, decimal price, DateTime creationDate, bool notificationStart, string notes)
+        #region Course Methods
+
+        public static async Task AddCourse(int termId, string courseName, string courseStatus,
+                    DateTime courseStart, DateTime courseEnd, string instName, string instEmail,
+                    string instPhone, string notes, bool notifiyStart, bool notifiyEnd)
         {
             await Init();
-            var widget = new Widget
+            var course = new Course
             {
-                GadgetId = gadgetId,
-                Name = name,
-                Color = color,
-                InStock = inStock,
-                Price = price,
-                CreationDate = creationDate,
-                StartNotification = notificationStart,
-                Notes = notes
+                TermID = termId,
+                Name = courseName,
+                Status = courseStatus,
+                Start = courseStart,
+                End = courseEnd,
+                InstructorName = instName,
+                InstructorEmail = instEmail,
+                InstructorPhone = instPhone,
+                Notes = notes,
+                NotificationStart = notifiyStart,
+                NotificationEnd = notifiyEnd,
             };
 
-            await _db.InsertAsync(widget);
+            await _db.InsertAsync(course);
 
-            var id = widget.ID;
+            var id = course.ID;
         }
-        public static async Task RemoveWidget(int id)
+
+        public static async Task RemoveCourse(int id)
         {
             await Init();
 
-            await _db.DeleteAsync<Widget>(id);
+            await _db.DeleteAsync<Course>(id);
         }
-        public static async Task<IEnumerable<Widget>> GetWidgets(int gadgetID)
+
+        public static async Task<IEnumerable<Course>> GetCourse(int termId)
         {
             await Init();
 
-            var widgets = await _db.Table<Widget>().Where(i => i.GadgetId == gadgetID).ToListAsync();
+            var courses = await _db.Table<Course>().Where(i => i.TermID == termId).ToListAsync();
 
-            return widgets;
+            return courses;
         }
-        public static async Task<IEnumerable<Widget>> GetWidgets()
-        {
-            await Init();
-            var widgets = await _db.Table<Widget>().ToListAsync();
 
-            return widgets;
-        }
-        public static async Task UpdateWidget(int id, string name, string color, int inStock, decimal price, DateTime creationDate, bool notificationStart, string notes)
+        public static async Task<IEnumerable<Course>> GetCourses()
         {
             await Init();
 
-            var widgetQuery = await _db.Table<Widget>()
+            var courses = await _db.Table<Course>().ToListAsync();
+
+            return courses;
+        }
+
+        public static async Task UpdateCourse(int id, int termId, string courseName, string courseStatus,
+                    DateTime courseStart, DateTime courseEnd, string instName, string instEmail,
+                    string instPhone, string notes, bool notifiyStart, bool notifiyEnd)
+        {
+            await Init();
+
+            var courseQuery = await _db.Table<Course>()
                 .Where(i => i.ID == id)
                 .FirstOrDefaultAsync();
-            
-            if (widgetQuery != null)
-            {
-                widgetQuery.Name = name;
-                widgetQuery.Color = color;
-                widgetQuery.InStock = inStock;
-                widgetQuery.Price = price;
-                widgetQuery.StartNotification = notificationStart;
-                widgetQuery.Notes = notes;
-                widgetQuery.CreationDate = creationDate;
 
-                await _db.UpdateAsync(widgetQuery);
+            if (courseQuery != null)
+            {
+                courseQuery.TermID = termId;
+                courseQuery.Name = courseName;
+                courseQuery.Status = courseStatus;
+                courseQuery.Start = courseStart;
+                courseQuery.End = courseEnd;
+                courseQuery.InstructorName = instName;
+                courseQuery.InstructorEmail = instEmail;
+                courseQuery.InstructorPhone = instPhone;
+                courseQuery.Notes = notes;
+                courseQuery.NotificationStart = notifiyStart;
+                courseQuery.NotificationEnd = notifiyEnd;
+
+                await _db.UpdateAsync(courseQuery);
             }
         }
 
         #endregion
 
-        #region DemoData
-        public static async void LoadSampleData()
+        #region Assessment Methods
+        public static async Task AddAssessment(int courseId, string asessType, DateTime dueDate, bool assessNotify)
         {
             await Init();
 
-            Gadget gadget = new Gadget()
+            var assessment = new Assessment
             {
-                Name = "Gadget 1",
-                Color = "Blue",
-                InStock = 255,
-                Price = 25m,
-                CreationDate = DateTime.Today.Date
+                CourseID = courseId,
+                Type = asessType,
+                DueDate = dueDate,
+                Notification = assessNotify,
             };
 
-            await _db.InsertAsync(gadget);
+            await _db.InsertAsync(assessment);
 
-            Widget widget = new Widget()
+            //var id = assessment.ID;
+        }
+
+        public static async Task RemoveAssess(int id)
+        {
+            await Init();
+
+            await _db.DeleteAsync<Assessment>(id);
+        }
+
+        public static async Task<IEnumerable<Assessment>> GetAssessment(int courseId)
+        {
+            await Init();
+
+            var assessments = await _db.Table<Assessment>().Where(i => i.CourseID == courseId).ToListAsync();
+
+            return assessments;
+        }
+
+        public static async Task<IEnumerable<Assessment>> GetAssessments()
+        {
+            await Init();
+
+            var assessments = await _db.Table<Assessment>().ToListAsync();
+
+            return assessments;
+        }
+
+        public static async Task UpdateAssess(int id, int courseId, string asessType, DateTime dueDate, bool assessNotify)
+        {
+            await Init();
+
+            var assessQuery = await _db.Table<Assessment>()
+                .Where(i => i.ID == id)
+                .FirstOrDefaultAsync();
+
+            if (assessQuery != null)
             {
-                Name = "Widget 1",
-                Color = "Teal",
-                InStock = 25,
-                Price = 22.59m,
-                CreationDate = DateTime.Now.Date,
-                StartNotification = true,
-                GadgetId = gadget.ID
-            };
+                assessQuery.CourseID = courseId;
+                assessQuery.Type = asessType;
+                assessQuery.DueDate = dueDate;
+                assessQuery.Notification = assessNotify;
 
-            await _db.InsertAsync(widget);
 
-            Widget widget2 = new Widget()
+                await _db.UpdateAsync(assessQuery);
+            }
+        }
+
+        #endregion
+
+
+        #region Demo Data
+        public static async Task LoadSampleData()
+        {
+            await Init();
+
+            var terms = await _db.Table<Term>().ToListAsync();
+            var courses = await _db.Table<Course>().ToListAsync();
+            var assessments = await _db.Table<Assessment>().ToListAsync();
+
+
+            if (terms.Count > 0 || courses.Count > 0 || assessments.Count > 0)
             {
-                Name = "Widget 2",
-                Color = "Green",
-                InStock = 55,
-                Price = 22.59m,
-                CreationDate = DateTime.Now.Date,
-                StartNotification = true,
-                GadgetId = gadget.ID
-            };
+                return;
+            }
 
-            await _db.InsertAsync(widget2);
+            //Term term = new Term
+            //{
+            //    TermName = "Winter Term",
+            //    StartDate = new DateTime(2022, 12, 05),
+            //    EndDate = new DateTime(2023, 05, 05),
+            //};
+            //await _db.InsertAsync(term);
 
-            Gadget gadget2 = new Gadget()
-            {
-                Name = "Gadget 2",
-                Color = "Black",
-                InStock = 155,
-                Price = 250m,
-                CreationDate = DateTime.Today.Date
-            };
+            //Course course1 = new Course
+            //{
+            //    TermID = term.ID,
+            //    Name = "Winter Course",
+            //    Status = "In Progress",
+            //    Start = new DateTime(2022, 12, 05),
+            //    End = new DateTime(2023, 01, 23),
+            //    InstructorName = "Kris French",
+            //    InstructorEmail = "kfren51@wgu.edu",
+            //    InstructorPhone = "360-969-0322",
+            //    Notes = " ",
+            //    NotificationStart = false,
+            //    NotificationEnd = false,
+            //};
+            //await _db.InsertAsync(course1);
 
-            await _db.InsertAsync(gadget2);
+            //    Assessment assessPA = new Assessment
+            //    {
+            //        CourseId = course1.Id,
+            //        TypeAssess = "Performance Assessment",
+            //        AssessDueDate = new DateTime(2023, 01, 23),
+            //        Notifications = false,
+            //    };
+            //    await _db.InsertAsync(assessPA);
 
-            Widget widget3 = new Widget()
-            {
-                Name = "Widget 3",
-                Color = "Teal",
-                InStock = 25,
-                Price = 22.59m,
-                CreationDate = DateTime.Now.Date,
-                StartNotification = true,
-                GadgetId = gadget2.ID
-            };
-
-            await _db.InsertAsync(widget3);
-
-            Widget widget4 = new Widget()
-            {
-                Name = "Widget 4",
-                Color = "Green",
-                InStock = 55,
-                Price = 22.59m,
-                CreationDate = DateTime.Now.Date,
-                StartNotification = true,
-                GadgetId = gadget2.ID
-            };
-
-            await _db.InsertAsync(widget4);
-
-            Widget widget5 = new Widget()
-            {
-                Name = "Widget 5",
-                Color = "Orange",
-                InStock = 55,
-                Price = 22.59m,
-                CreationDate = DateTime.Now.Date,
-                StartNotification = true,
-                GadgetId = gadget2.ID
-            };
-
-            await _db.InsertAsync(widget5);
+            //    Assessment assessOA = new Assessment
+            //    {
+            //        CourseId = course1.Id,
+            //        TypeAssess = "Objective Assessment",
+            //        AssessDueDate = new DateTime(2022, 12, 23),
+            //        Notifications = false,
+            //    };
+            //    await _db.InsertAsync(assessOA);
 
         }
-        
-        public static async Task ClearSampleData()
+
+        public static async void ClearSampleData()
         {
             await Init();
 
-            await _db.DropTableAsync<Widget>();
-            await _db.DropTableAsync<Gadget>();
+            await _db.DropTableAsync<Term>();
+            await _db.DropTableAsync<Course>();
+            //await _db.DropTableAsync<Assessment>();
+
             _db = null;
-            _dbConnection = null;
         }
 
-        public static async void LoadSampleDataSql()
-        {
-
-        }
         #endregion
-        // check end of webinar 5 for more ideas on sqlLite queries
-
     }
 }

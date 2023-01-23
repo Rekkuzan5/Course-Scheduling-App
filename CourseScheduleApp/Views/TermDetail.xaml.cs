@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace CourseScheduleApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class GadgetEdit : ContentPage
+    public partial class TermDetail : ContentPage
     {
-        public GadgetEdit()
+        public TermDetail()
         {
             InitializeComponent();
         }

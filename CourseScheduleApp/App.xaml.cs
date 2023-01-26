@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CourseScheduleApp.Views;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,9 +11,11 @@ namespace CourseScheduleApp
         {
             InitializeComponent();
 
-            var dashboard = new Dashboard();
-            var navPage = new NavigationPage(dashboard);
-            MainPage = navPage;
+            //var dashboard = new Dashboard();
+            //var navPage = new NavigationPage(dashboard);
+            //MainPage = navPage;
+
+            MainPage = new Dashboard();
         }
 
         protected override void OnStart()

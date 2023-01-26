@@ -15,7 +15,7 @@ using Xamarin.Forms.Xaml;
 namespace CourseScheduleApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Dashboard : ContentPage
+    public partial class Dashboard : Shell
     {
         public List<Term> TermList = new List<Term>();
 

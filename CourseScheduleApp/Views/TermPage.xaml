@@ -12,15 +12,20 @@
 						SelectionMode="Single"
 						SelectionChanged="TermCollectionView_SelectionChanged">
         <CollectionView.ItemsLayout>
-            <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+            <LinearItemsLayout Orientation="Vertical" ItemSpacing="5" />
         </CollectionView.ItemsLayout>
 
         <CollectionView.ItemTemplate>
             <DataTemplate>
                 <StackLayout>
-                    <Grid Padding="5" ColumnSpacing="22" RowSpacing="1" BackgroundColor="WhiteSmoke">
+                    <Frame HasShadow="True" CornerRadius="20" BackgroundColor="WhiteSmoke" HeightRequest="90" Margin="10, 0" Padding="20" IsClippedToBounds="False" BorderColor="CornflowerBlue">
+                    <StackLayout>
 
-                        <Grid.RowDefinitions>
+                        <!--<Grid Padding="2" RowSpacing="1">
+
+                            <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
@@ -31,16 +36,44 @@
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
 
-                        <Label Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Name</Label>
-                        <Label Text="{Binding TermName}" Grid.Row="0" Grid.Column="1" VerticalTextAlignment="Center" FontSize="Medium"/>
+                            <Label Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Term</Label>
+                            <Label Grid.Row="0" Grid.Column="1" VerticalTextAlignment="Center" FontSize="Medium" Text="{Binding ID}"/>
 
-                        <Label Grid.Row="1" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Start Date</Label>
-                        <Label Text="{Binding StartDate}" Grid.Row="1" Grid.Column="1" VerticalTextAlignment="Center" FontSize="Medium"/>
+                            <Label Grid.Row="2" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Name</Label>
+                            <Label Text="{Binding TermName}" Grid.Row="2" Grid.Column="1" VerticalTextAlignment="Center" FontSize="Medium"/>
 
-                        <Label Grid.Row="2" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">End Date</Label>
-                        <Label Text="{Binding EndDate}" Grid.Row="2" Grid.Column="1" VerticalTextAlignment="Center" FontSize="Medium"/>
+                            <Label Grid.Row="3" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Start Date</Label>
+                            <Label Text="{Binding StartDate}" Grid.Row="3" Grid.Column="1" VerticalTextAlignment="Center" FontSize="Medium"/>
 
-                    </Grid>
+                            <Label Grid.Row="4" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">End Date</Label>
+                            <Label Text="{Binding EndDate}" Grid.Row="4" Grid.Column="1" VerticalTextAlignment="Center" FontSize="Medium"/>-->
+
+                            <Label Text="{Binding TermName}"
+                               FontSize="Medium"
+                               FontAttributes="Bold" />
+                            <BoxView Color="Gray"
+                                 HeightRequest="1"
+                                 HorizontalOptions="Fill" />
+                            <!--<Label Text="{Binding TermName}" />-->
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"></ColumnDefinition>
+                                    <ColumnDefinition Width="200"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="0" FontSize="Small" VerticalTextAlignment="Center" Padding="20,0,0,0" FontAttributes="Bold">Start</Label>
+                                <Label Grid.Row="0" Grid.Column="1" VerticalTextAlignment="Center" FontSize="Small" Text="{Binding StartDate}"/>
+                                <Label Grid.Row="1" Grid.Column="0" FontSize="Small" VerticalTextAlignment="Center" Padding="20,0,0,0" FontAttributes="Bold">End</Label>
+                                <Label Grid.Row="1" Grid.Column="1" VerticalTextAlignment="Center" FontSize="Small" Text="{Binding EndDate}"/>
+                            <!--<Label Text="{Binding StartDate}" />
+                        <Label Text="{Binding EndDate}" />-->
+                        </Grid>
+                    </StackLayout>
+                </Frame>
                 </StackLayout>
             </DataTemplate>
         </CollectionView.ItemTemplate>

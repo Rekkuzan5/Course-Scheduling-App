@@ -10,9 +10,9 @@
             </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Margin="20">
 
-            <Grid Padding="5" ColumnSpacing="1" RowSpacing="1" BackgroundColor="WhiteSmoke">
+            <Grid Padding="5" ColumnSpacing="1" RowSpacing="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -21,24 +21,28 @@
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="250" />
                 </Grid.ColumnDefinitions>
 
                 <!-- Add Placeholder Text if Necessary -->
                 <Label Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">ID</Label>
-                <Entry Text="{Binding Id}" x:Name="TermId" Grid.Row="0" Grid.Column="1" VerticalTextAlignment="Center" IsReadOnly="True"></Entry>
+                <Entry Text="{Binding Id}" x:Name="TermId" Grid.Row="0" Grid.Column="1" Margin="20, 0, 0, 0" VerticalTextAlignment="Center" IsReadOnly="True"></Entry>
 
                 <Label Grid.Row="1" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Term Name</Label>
-                <Entry Text="{Binding Name}" x:Name="TermName" Grid.Row="1" Grid.Column="1" VerticalTextAlignment="Center"></Entry>
+                <Entry Text="{Binding Name}" x:Name="TermName" Grid.Row="1" Grid.Column="1" Margin="20, 0, 0, 0" VerticalTextAlignment="Center"></Entry>
 
                 <Label Grid.Row="2" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Start Date</Label>
-                <DatePicker DateSelected="TermStart_DateSelected" x:Name="TermStart" Grid.Row="2" Grid.Column="1" />
+                <DatePicker DateSelected="TermStart_DateSelected" x:Name="TermStart" Margin="20, 0, 0, 0" Grid.Row="2" Grid.Column="1" />
 
                 <Label Grid.Row="3" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">End Date</Label>
-                <DatePicker DateSelected="TermEnd_DateSelected" x:Name="TermEnd" Grid.Row="3" Grid.Column="1"/>
+                <DatePicker DateSelected="TermEnd_DateSelected" x:Name="TermEnd" Margin="20, 0, 0, 0" Grid.Row="3" Grid.Column="1"/>
             </Grid>
-            <Button Text="Click to Check Course Related to the Term" x:Name="CheckCourse" Clicked="CheckCourse_Clicked" VerticalOptions="EndAndExpand"/>
+            <Button Text="View Courses in this Term" 
+                    x:Name="CheckCourse" 
+                    Clicked="CheckCourse_Clicked" 
+                    VerticalOptions="Start"
+                    BackgroundColor="#FFDC00"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

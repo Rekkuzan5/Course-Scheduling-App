@@ -186,7 +186,7 @@ namespace CourseScheduleApp.Services
             //var id = assessment.ID;
         }
 
-        public static async Task RemoveAssess(int id)
+        public static async Task RemoveAssessment(int id)
         {
             await Init();
 
@@ -197,9 +197,9 @@ namespace CourseScheduleApp.Services
         {
             await Init();
 
-            var assessments = await _db.Table<Assessment>().Where(i => i.CourseID == courseId).ToListAsync();
+            var assessment = await _db.Table<Assessment>().Where(i => i.CourseID == courseId).ToListAsync();
 
-            return assessments;
+            return assessment;
         }
 
         public static async Task<IEnumerable<Assessment>> GetAssessments()

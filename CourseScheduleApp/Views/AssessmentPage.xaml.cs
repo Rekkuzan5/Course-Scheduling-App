@@ -21,7 +21,7 @@ namespace CourseScheduleApp.Views
 		protected override async void OnAppearing()
 		{
 			base.OnAppearing();
-			AssessCollectionView.ItemsSource = await DatabaseService.GetAssessments();
+			AssessmentCollectionView.ItemsSource = await DatabaseService.GetAssessments();
 		}
 
 		async void AddAssessment_Clicked(object sender, EventArgs e)
@@ -29,13 +29,13 @@ namespace CourseScheduleApp.Views
 			await Navigation.PushAsync(new AssessmentAdd());
 		}
 
-		async void AssessCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			if (e.CurrentSelection != null)
-			{
-				Assessment assess = (Assessment)e.CurrentSelection.FirstOrDefault();
-				//await Navigation.PushAsync(new AssessmentEdit(assess));
-			}
-		}
-	}
+        async void AssessmentCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.CurrentSelection != null)
+            {
+                Assessment assessment = (Assessment)e.CurrentSelection.FirstOrDefault();
+                await Navigation.PushAsync(new AssessmentEdit(assessment));
+            }
+        }
+    }
 }

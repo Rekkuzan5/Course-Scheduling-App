@@ -1,9 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CourseScheduleApp.Dashboard">
-    <NavigationPage.TitleView>
-        <Label Text="WGU - Terms"/>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="CourseScheduleApp.Dashboard"
+            xmlns:local="clr-namespace:CourseScheduleApp.Views"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            android:TabbedPage.ToolbarPlacement="Bottom"
+            Title="WGU">
+    <!--<NavigationPage.TitleView>
+        <Label Text="WGU"/>
     </NavigationPage.TitleView>
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="ViewTerms" Text="View Terms" Clicked="ViewTerms_Clicked"></ToolbarItem>
@@ -19,5 +23,32 @@
 				FontAttributes="Bold"
 				FontSize="Large"/>
         </StackLayout>
-    </ContentPage.Content>
-</ContentPage>
+    </ContentPage.Content>-->
+    <!--Pages can be added as references or inline-->
+    <TabBar>
+        <ShellContent Title="Terms" Route="TermPage" ContentTemplate="{DataTemplate local:TermPage}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="FARegular" Glyph="&#xf022;" />
+            </ShellContent.Icon>
+            <!--<local:TermPage Title="WGU" />-->
+        </ShellContent> 
+        <ShellContent Title="Courses" Route="CoursePage" ContentTemplate="{DataTemplate local:CoursePage}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="FASolid" Glyph="&#xf518;" />
+            </ShellContent.Icon>
+            <!--<local:TermPage Title="WGU" />-->
+        </ShellContent> 
+        <ShellContent Title="Assessments" Route="AssessmentPage" ContentTemplate="{DataTemplate local:AssessmentPage}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="FARegular" Glyph="&#xf15b;" />
+            </ShellContent.Icon>
+            <!--<local:TermPage Title="WGU" />-->
+        </ShellContent>
+        <!--<Tab Title="Courses">
+            <local:CoursePage Title="WGU" />
+        </Tab>
+        <Tab Title="Assessments" >
+            <local:AssessmentPage Title="WGU" />
+        </Tab>-->
+    </TabBar>
+</Shell>

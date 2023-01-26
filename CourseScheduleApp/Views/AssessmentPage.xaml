@@ -6,11 +6,11 @@
         <ToolbarItem x:Name="AddAsses" Text="Add Assessment" Clicked="AddAssessment_Clicked"></ToolbarItem>
     </ContentPage.ToolbarItems>
 
-    <CollectionView x:Name="AssessCollectionView"
-					ItemsSource="{Binding Assessments}"
-					EmptyView="No Courses to Display"
+    <CollectionView x:Name="AssessmentCollectionView"
+					ItemsSource="{Binding Assessment}"
+					EmptyView="No Assessments to Display"
 					SelectionMode="Single"
-					SelectionChanged="AssessCollectionView_SelectionChanged">
+					SelectionChanged="AssessmentCollectionView_SelectionChanged">
 
         <CollectionView.ItemsLayout>
             <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
@@ -19,31 +19,35 @@
         <CollectionView.ItemTemplate>
             <DataTemplate>
                 <StackLayout>
-                    <Grid Padding="5" ColumnSpacing="22" RowSpacing="1" BackgroundColor="WhiteSmoke">
+                    <Frame HasShadow="True" CornerRadius="20" BackgroundColor="WhiteSmoke" HeightRequest="90" Margin="10, 0" Padding="20" IsClippedToBounds="True" BorderColor="CornflowerBlue">
+                        <StackLayout>
+                            
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
 
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"></ColumnDefinition>
-                            <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
+                                <Label Grid.Row="0" Grid.Column="0" FontSize="Small" VerticalTextAlignment="Center" Padding="20,0,0,0" FontAttributes="Bold">Type</Label>
+                                <Label Text="{Binding Type}" Grid.Row="0" Grid.Column="1" VerticalTextAlignment="Center" FontSize="Small"/>
 
-                        <Label Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold" >Assesment Type</Label>
-                        <Label Text="{Binding Type}" Grid.Row="0" Grid.Column="1" VerticalTextAlignment="Center" FontSize="Medium" />
+                                <Label Grid.Row="1" Grid.Column="0" FontSize="Small" VerticalTextAlignment="Center" Padding="20,0,0,0" FontAttributes="Bold">Course ID</Label>
+                                <Label Text="{Binding CourseID}" Grid.Row="1" Grid.Column="1" VerticalTextAlignment="Center" FontSize="Small"/>
 
-                        <Label Grid.Row="1" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold" >Course ID</Label>
-                        <Label Text="{Binding CourseID}" Grid.Row="1" Grid.Column="1" VerticalTextAlignment="Center" FontSize="Medium" />
+                                <Label Grid.Row="2" Grid.Column="0" FontSize="Small" VerticalTextAlignment="Center" Padding="20,0,0,0" FontAttributes="Bold" >Due Date</Label>
+                                <Label Text="{Binding DueDate}" Grid.Row="2" Grid.Column="1" VerticalTextAlignment="Center" FontSize="Small" />
 
-                        <Label Grid.Row="2" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold" >Due Date</Label>
-                        <Label Text="{Binding DueDate}" Grid.Row="2" Grid.Column="1" VerticalTextAlignment="Center" FontSize="Medium" />
-                    </Grid>
+                            </Grid>
+                        </StackLayout>
+                    </Frame>
                 </StackLayout>
             </DataTemplate>
         </CollectionView.ItemTemplate>
-
     </CollectionView>
 </ContentPage>

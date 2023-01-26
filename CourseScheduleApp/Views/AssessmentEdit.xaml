@@ -8,10 +8,18 @@
         <ToolbarItem x:Name="DeleteAssess" Text="Delete" Clicked="DeleteAssessment_Clicked"></ToolbarItem>
     </ContentPage.ToolbarItems>
 
-    <ContentPage.Content>
-        <StackLayout>
+    <!--<CollectionView x:Name="AssessmentCollectionView"
+						BindableLayout.ItemsSource="{Binding Assessment}"
+						EmptyView="No Assessements to Display"
+						SelectionMode="Single"
+						SelectionChanged="AssessmentCollectionView_SelectionChanged">
+        <CollectionView.ItemsLayout>
+            <LinearItemsLayout Orientation="Vertical" ItemSpacing="5" />
+        </CollectionView.ItemsLayout>-->
 
-            <Grid Padding="5" RowSpacing="1" ColumnSpacing="1" BackgroundColor="WhiteSmoke">
+    <ContentPage.Content>
+        <StackLayout Margin="20">
+            <Grid Padding="5" RowSpacing="1" ColumnSpacing="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -21,15 +29,15 @@
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="150" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Assessment ID</Label>
-                <Entry Text="{Binding Id}" x:Name="AssId" Grid.Row="0" Grid.Column="1" VerticalTextAlignment="Center" IsReadOnly="True"></Entry>
+                <Label Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">ID</Label>
+                <Entry Text="{Binding Id}" x:Name="AssessmentId" Grid.Row="0" Grid.Column="1" VerticalTextAlignment="Center" IsReadOnly="True"></Entry>
 
-                <Label Grid.Row="1" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Assessment Type</Label>
-                <Picker x:Name="AssessType" Title="AssType" Grid.Row="1" Grid.Column="1">
+                <Label Grid.Row="1" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Type</Label>
+                <Picker x:Name="AssessmentType" Title="AssessmentType" Grid.Row="1" Grid.Column="1">
                     <Picker.Items>
                         <x:String>Objective Assessment</x:String>
                         <x:String>Performance Assessment</x:String>

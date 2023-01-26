@@ -9,9 +9,9 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Term Name" 
+            <Label Text="Add a Term" 
 				   FontSize="Title"
-				   Margin="10,0,10,0"/>
+				   Margin="10,10,10,0"/>
             <Editor Placeholder="Enter a Term Name"
 					x:Name="TermName"
 					Margin="10,0,10,0" />
@@ -20,6 +20,7 @@
 					   FontSize="Medium"
 					   Grid.Column="0"
 					   Grid.Row="0"
+                       FontAttributes="Bold"
 					   VerticalTextAlignment="Center"
 					   HorizontalTextAlignment="Center"/>
                 <DatePicker x:Name="TermStartDate"
@@ -31,6 +32,7 @@
 					   FontSize="Medium"
 					   Grid.Column="0"
 					   Grid.Row="1"
+                       FontAttributes="Bold"
 					   VerticalTextAlignment="Center"
 					   HorizontalTextAlignment="Center"/>
                 <DatePicker x:Name="TermEndDate"

@@ -19,9 +19,15 @@
         <CollectionView.ItemTemplate>
             <DataTemplate>
                 <StackLayout>
-                    <Frame HasShadow="True" CornerRadius="20" BackgroundColor="WhiteSmoke" HeightRequest="90" Margin="10, 0" Padding="20" IsClippedToBounds="True" BorderColor="CornflowerBlue">
+                    <Frame HasShadow="True" CornerRadius="20" BackgroundColor="WhiteSmoke" HeightRequest="110" Margin="10, 0" Padding="20,20,20,20" IsClippedToBounds="True" BorderColor="CornflowerBlue">
                         <StackLayout>
-                            
+
+                            <Label Text="{Binding AssessmentName}"
+                               FontSize="Medium"
+                               FontAttributes="Bold" />
+                            <BoxView Color="Gray"
+                                 HeightRequest="1"
+                                 HorizontalOptions="Fill" />
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>

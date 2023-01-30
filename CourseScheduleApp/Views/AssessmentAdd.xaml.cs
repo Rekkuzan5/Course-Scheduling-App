@@ -34,6 +34,11 @@ namespace CourseScheduleApp.Views
                 await DisplayAlert("Error!", "Please select an assessment type.", "Ok");
                 return;
             }
+            else if (AssessNameAdd.Text == null)
+            {
+                await DisplayAlert("Error!", "Please enter a name for assessment.", "Ok");
+                return;
+            }
             else if (AssessTermAdd.SelectedItem == null)
             {
                 await DisplayAlert("Error!", "Please select a course.", "Ok");
@@ -69,7 +74,7 @@ namespace CourseScheduleApp.Views
 
             else
             {
-                await DatabaseService.AddAssessment(c.ID, (string)TypeAssess.SelectedItem,
+                await DatabaseService.AddAssessment(c.ID, (string)TypeAssess.SelectedItem, AssessNameAdd.Text,
                                         AddDueDate.Date, NotificationAdd.IsToggled);
                 await Navigation.PopAsync();
             }

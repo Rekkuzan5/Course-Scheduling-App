@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using CourseScheduleApp.Models;
 using CourseScheduleApp.Services;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -29,14 +31,14 @@ namespace CourseScheduleApp.Views
         {
 			Term t = (Term)AddCourseTerm.SelectedItem;
 
-			if (/*!validEmail(AddInstEmail.Text) && */!IsValidPhoneNumber(AddInstPhone.Text))
-			{
-				await DisplayAlert("Error!", "Enter a valid phone number.", "Ok");
-				return;
-			}
-			else if (AddCourseTerm.SelectedItem == null)
+			if (AddCourseTerm.SelectedItem == null)
 			{
 				await DisplayAlert("Error!", "Please select a term.", "Ok");
+				return;
+			}
+			else if (AddCourseName.Text == null)
+			{
+				await DisplayAlert("Error!", "Please enter name for course.", "Ok");
 				return;
 			}
 			else if (AddCourseStatus.SelectedItem == null)
@@ -50,23 +52,70 @@ namespace CourseScheduleApp.Views
 
 				return;
 			}
+			else if (AddCourseInst.Text == null)
+			{
+				await DisplayAlert("Error!", "Course must have an Instructor assigned.", "Ok");
+
+				return;
+			}
+			else if (!ValidateEmail(AddInstEmail.Text) || !IsValidPhoneNumber(AddInstPhone.Text))
+			{
+				await DisplayAlert("Error!", "Enter a valid e-mail/phone number.", "Ok");
+				return;
+			}
+			
 			else
 			{
-				// can use sms instead of email
-				//if (CourseNotes.Text != null)
-				//{
-				//	var answer = await DisplayAlert("Please Choose", "Would you like to send a Notification email?", "Yes", "No");
-				//	if (answer)
-				//	{
-				//		await SendEmail("You Have Notes", CourseNotes.Text);
-				//	}
-				//}
+				 //can use sms instead of email
+				if (CourseNotes.Text != null)
+				{
+					var answer = await DisplayAlert("Please Choose", "Would you like to send a Notification email?", "Yes", "No");
+					if (answer)
+					{
+						await SendEmail("Course Notes", CourseNotes.Text, AddInstEmail.Text);
+					}
+				}
 				await DatabaseService.AddCourse(t.ID, AddCourseName.Text, (string)AddCourseStatus.SelectedItem,
 									AddCourseStart.Date, AddCourseEnd.Date, AddCourseInst.Text, AddInstEmail.Text, AddInstPhone.Text,
 									CourseNotes.Text, NotificationAdd.IsToggled, NotifyEnd.IsToggled);
 				await Navigation.PopAsync();
 			}
 		}
+
+		public async Task SendEmail(string subject, string body, string recipient)
+		{
+			try
+			{
+				await Email.ComposeAsync("Course Notes", CourseNotes.Text, AddInstEmail.Text);
+			}
+			catch (FeatureNotSupportedException)
+			{
+				// Email is not supported on this device
+				await DisplayAlert("Error!", "Email is not supported on this device.", "Ok");
+			}
+			catch (Exception)
+			{
+				// Some other exception occurred
+				await DisplayAlert("Error!", "Unable to process request.", "Ok");
+			}
+		}
+
+		
+		private bool ValidateEmail(string email)
+		{
+			try
+			{
+				MailAddress m = new MailAddress(email);
+
+				return true;
+			}
+			catch (Exception)
+			{
+				//DisplayAlert("Error!", "Enter a valid email address.", "Ok");
+				return false;
+			}
+		}
+
 		public static bool IsValidPhoneNumber(string phoneNumber)
 		{
 			if (string.IsNullOrWhiteSpace(phoneNumber))

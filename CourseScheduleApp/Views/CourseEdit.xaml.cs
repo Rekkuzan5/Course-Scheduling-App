@@ -167,10 +167,10 @@ namespace CourseScheduleApp.Views
 
             var assess = await DatabaseService.GetAssessment(int.Parse(courseID));
 
-            string assessName = string.Join(", ", assess.Select(c => c.Type));
+            string assessmentName = string.Join(", ", assess.Select(c => c.AssessmentName));
 
 
-            await DisplayAlert("Assessments", assessName, "Ok");
+            await DisplayAlert("Assessments", assessmentName, "Ok");
         }
 
 		private void CourseStart_DateSelected(object sender, DateChangedEventArgs e)

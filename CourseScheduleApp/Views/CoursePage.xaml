@@ -21,33 +21,12 @@
                 <StackLayout>
                     <Frame HasShadow="True" CornerRadius="20" BackgroundColor="WhiteSmoke" HeightRequest="90" Margin="10, 0" Padding="20" IsClippedToBounds="False" BorderColor="CornflowerBlue">
                         <StackLayout>
-                            <!--<Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>-->
-
-                                <!--<Label Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Name</Label>
-                        <Label Text="{Binding Name}" Grid.Row="0" Grid.Column="1" VerticalTextAlignment="Center" FontSize="Medium"/>
-
-                        <Label Grid.Row="1" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Start</Label>
-                        <Label Text="{Binding Start}" Grid.Row="1" Grid.Column="1" VerticalTextAlignment="Center" FontSize="Medium"/>
-
-                        <Label Grid.Row="2" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">End</Label>
-                        <Label Text="{Binding End}" Grid.Row="2" Grid.Column="1" VerticalTextAlignment="Center" FontSize="Medium"/>-->
-
                                 <Label Text="{Binding Name}"
                                FontSize="Medium"
                                FontAttributes="Bold" />
                                 <BoxView Color="Gray"
                                  HeightRequest="1"
                                  HorizontalOptions="Fill" />
-                                <!--<Label Text="{Binding TermName}" />-->
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
@@ -63,9 +42,6 @@
                                     <Label Grid.Row="0" Grid.Column="1" VerticalTextAlignment="Center" FontSize="Small" Text="{Binding Start}"/>
                                     <Label Grid.Row="1" Grid.Column="0" FontSize="Small" VerticalTextAlignment="Center" Padding="20,0,0,0" FontAttributes="Bold">End</Label>
                                     <Label Grid.Row="1" Grid.Column="1" VerticalTextAlignment="Center" FontSize="Small" Text="{Binding End}"/>
-                                    <!--<Label Grid.Row="2" Grid.Column="0" FontSize="Small" VerticalTextAlignment="Center" Padding="20,0,0,0" FontAttributes="Bold">End</Label>
-                                    <Label Grid.Row="2" Grid.Column="1" VerticalTextAlignment="Center" FontSize="Small" Text="{Binding End}"/>-->
-
                                 </Grid>
                         </StackLayout>
                     </Frame>

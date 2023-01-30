@@ -169,7 +169,7 @@ namespace CourseScheduleApp.Services
         #endregion
 
         #region Assessment Methods
-        public static async Task AddAssessment(int courseId, string asessType, DateTime dueDate, bool assessNotify)
+        public static async Task AddAssessment(int courseId, string asessType, string assessmentName, DateTime dueDate, bool assessNotify)
         {
             await Init();
 
@@ -177,6 +177,7 @@ namespace CourseScheduleApp.Services
             {
                 CourseID = courseId,
                 Type = asessType,
+                AssessmentName = assessmentName,
                 DueDate = dueDate,
                 Notification = assessNotify,
             };
@@ -211,7 +212,7 @@ namespace CourseScheduleApp.Services
             return assessments;
         }
 
-        public static async Task UpdateAssess(int id, int courseId, string asessType, DateTime dueDate, bool assessNotify)
+        public static async Task UpdateAssessment(int id, int courseId, string assessmentType, string assessmentName, DateTime dueDate, bool assessNotify)
         {
             await Init();
 
@@ -222,10 +223,10 @@ namespace CourseScheduleApp.Services
             if (assessQuery != null)
             {
                 assessQuery.CourseID = courseId;
-                assessQuery.Type = asessType;
+                assessQuery.AssessmentName = assessmentName;
+                assessQuery.Type = assessmentType;
                 assessQuery.DueDate = dueDate;
                 assessQuery.Notification = assessNotify;
-
 
                 await _db.UpdateAsync(assessQuery);
             }

@@ -9,6 +9,7 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
+        <ScrollView>
         <StackLayout Margin="20">
             <Grid Padding="5" RowSpacing="1" ColumnSpacing="1">
                 <Grid.RowDefinitions>
@@ -81,5 +82,6 @@
                     VerticalOptions="Start"
                     BackgroundColor="#FFDC00"/>
         </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

@@ -16,6 +16,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
@@ -31,14 +32,17 @@
                     </Picker.Items>
                 </Picker>
 
-                <Label Grid.Row="1" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Course</Label>
-                <Picker Title="Course Select" x:Name="AssessTermAdd" ItemDisplayBinding="{Binding Name}" Grid.Row="1" Grid.Column="1"/>
+                <Label Grid.Row="1" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Name</Label>
+                <Entry Text="{Binding AssessmentName}" x:Name="AssessNameAdd" Grid.Row="1" Grid.Column="1"/>
 
-                <Label Grid.Row="2" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Due Date</Label>
-                <DatePicker x:Name="AddDueDate" Grid.Row="2" Grid.Column="1" DateSelected="AddDueDate_DateSelected" />
+                <Label Grid.Row="2" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Course</Label>
+                <Picker Title="Course Select" x:Name="AssessTermAdd" ItemDisplayBinding="{Binding Name}" Grid.Row="2" Grid.Column="1"/>
 
-                <Label Grid.Row="3" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Notifications</Label>
-                <Switch x:Name="NotificationAdd" IsToggled="False" Grid.Row="3" Grid.Column="1"/>
+                <Label Grid.Row="3" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Due Date</Label>
+                <DatePicker x:Name="AddDueDate" Grid.Row="3" Grid.Column="1" DateSelected="AddDueDate_DateSelected" />
+
+                <Label Grid.Row="4" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Notifications</Label>
+                <Switch x:Name="NotificationAdd" IsToggled="False" Grid.Row="4" Grid.Column="1"/>
 
             </Grid>
 

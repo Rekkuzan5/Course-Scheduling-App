@@ -26,10 +26,11 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="120" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
@@ -37,21 +38,24 @@
                 <Entry Text="{Binding Id}" x:Name="AssessmentId" Grid.Row="0" Grid.Column="1" VerticalTextAlignment="Center" IsReadOnly="True"></Entry>
 
                 <Label Grid.Row="1" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Type</Label>
-                <Picker x:Name="AssessmentType" Title="AssessmentType" Grid.Row="1" Grid.Column="1">
+                <Picker x:Name="AssessmentType" Title="AssessType" Grid.Row="1" Grid.Column="1">
                     <Picker.Items>
                         <x:String>Objective Assessment</x:String>
                         <x:String>Performance Assessment</x:String>
                     </Picker.Items>
                 </Picker>
 
-                <Label Grid.Row="2" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Course Name</Label>
-                <Picker x:Name="CourseSelect" Title="CourseSel" ItemDisplayBinding="{Binding CourseName}" Grid.Row="2" Grid.Column="1"/>
+                <Label Grid.Row="2" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Name</Label>
+                <Entry Text="{Binding AssessmentName}" x:Name="AssessmentName" Grid.Row="2" Grid.Column="1" VerticalTextAlignment="Center" FontSize="Medium"/>
 
-                <Label Grid.Row="3" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Due Date</Label>
-                <DatePicker x:Name="DueDate" Grid.Row="3" Grid.Column="1" DateSelected="DueDate_DateSelected"/>
+                <Label Grid.Row="3" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Course</Label>
+                <Picker x:Name="CourseSelect" Title="CourseSel" ItemDisplayBinding="{Binding Name}" Grid.Row="3" Grid.Column="1"/>
 
-                <Label Grid.Row="4" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Notifications</Label>
-                <Switch x:Name="NotifyEdit" Grid.Row="4" Grid.Column="1" />
+                <Label Grid.Row="4" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Due Date</Label>
+                <DatePicker x:Name="DueDate" Grid.Row="4" Grid.Column="1" DateSelected="DueDate_DateSelected"/>
+
+                <Label Grid.Row="5" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Notifications</Label>
+                <Switch x:Name="NotifyEdit" Grid.Row="5" Grid.Column="1" />
             </Grid>
         </StackLayout>
     </ContentPage.Content>

@@ -63,7 +63,6 @@ namespace CourseScheduleApp.Views
 				await DisplayAlert("Error!", "Enter a valid e-mail/phone number.", "Ok");
 				return;
 			}
-			
 			else
 			{
 				 //can use sms instead of email
@@ -100,7 +99,6 @@ namespace CourseScheduleApp.Views
 			}
 		}
 
-		
 		private bool ValidateEmail(string email)
 		{
 			try

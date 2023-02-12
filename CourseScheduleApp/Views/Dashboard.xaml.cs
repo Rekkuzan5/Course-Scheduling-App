@@ -29,26 +29,49 @@ namespace CourseScheduleApp
             base.OnAppearing();
 
             //DatabaseService.ClearSampleData();
-            await DatabaseService.LoadSampleData();
+            //await DatabaseService.LoadSampleData();
 
             var courseList = await DatabaseService.GetCourses();
-            //var assessList = await DatabaseServices.GetAssessment();
+            var assessmentList = await DatabaseService.GetAssessments();
 
-            var notifyRandom = new Random();
-            var notifyId = notifyRandom.Next(1000);
+            //var notifyRandom = new Random();
+            //var notifyId = notifyRandom.Next(1000);
 
-            foreach (Course listedCourse in courseList)
+            //foreach (Course listedCourse in courseList)
+            //{
+            //    if (listedCourse.NotificationStart == true || listedCourse.NotificationEnd == true)
+            //    {
+            //        if (listedCourse.Start == DateTime.Today)
+            //        {
+            //            CrossLocalNotifications.Current.Show("Notice", $"{listedCourse.Name} begins today.", notifyId);
+            //        }
+            //        if (listedCourse.End == DateTime.Today)
+            //        {
+            //            CrossLocalNotifications.Current.Show("Notice", $"{listedCourse.Name} ends today.", notifyId);
+            //        }
+            //    }
+            //}
+
+            //var courseList = await DatabaseService.GetCourses();
+            //var assessmentList = await DatabaseService.GetAssessments();
+
+            foreach (var course in courseList)
             {
-                if (listedCourse.NotificationStart == true || listedCourse.NotificationEnd == true)
+                if (course.NotificationStart && course.Start == DateTime.Today)
                 {
-                    if (listedCourse.Start == DateTime.Today)
-                    {
-                        CrossLocalNotifications.Current.Show("Notice", $"{listedCourse.Name} begins today.", notifyId);
-                    }
-                    if (listedCourse.End == DateTime.Today)
-                    {
-                        CrossLocalNotifications.Current.Show("Notice", $"{listedCourse.Name} ends today.", notifyId);
-                    }
+                    CrossLocalNotifications.Current.Show("Course Update!", course.Name.ToString() + " begins today!", 100);
+                }
+                if (course.NotificationEnd && course.End == DateTime.Today)
+                {
+                    CrossLocalNotifications.Current.Show("Course Update!", course.Name.ToString() + " ends today!", 101);
+                }
+            }
+
+            foreach (var assessment in assessmentList)
+            {
+                if (assessment.Notification && assessment.DueDate == DateTime.Today)
+                {
+                    CrossLocalNotifications.Current.Show("Assessment Update!", assessment.AssessmentName.ToString() + " is due today!", 100);
                 }
             }
         }

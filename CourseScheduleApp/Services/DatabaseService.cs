@@ -6,6 +6,7 @@ using SQLite;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using CourseScheduleApp.Models;
+using Plugin.LocalNotifications;
 
 namespace CourseScheduleApp.Services
 {
@@ -35,11 +36,37 @@ namespace CourseScheduleApp.Services
             await _db.CreateTableAsync<Course>();
             await _db.CreateTableAsync<Assessment>();
 
-            //var platform = new SQLite.Net.Platform.XamarinAndroid.SQLitePlatformAndroid();
-            //var connection = new SQLite.Net.SQLiteConnection(platform, path);
-            //return connection;
+            // Notifications //
+            var courseList = await GetCourses();
+            var assessmentList = await GetAssessments();
 
+            int c = 0;
+            foreach (var course in courseList)
+            {
+                if (course.NotificationStart == true && course.Start == DateTime.Today)
+                {
+                    CrossLocalNotifications.Current.Show("Course Update!", course.Name.ToString() + " begins today!", c++);
+                }
+                if (course.NotificationEnd == true && course.End == DateTime.Today)
+                {
+                    CrossLocalNotifications.Current.Show("Course Update!", course.Name.ToString() + " ends today!", c++);
+                }
+            }
+
+            int a = 1000;
+            foreach (var assessment in assessmentList)
+            {
+                if (assessment.Type == "Objective Assessment" && assessment.Notification == true && assessment.DueDate == DateTime.Today)
+                {
+                    CrossLocalNotifications.Current.Show("Assessment Update!", assessment.AssessmentName.ToString() + " is due today!", a++);
+                }
+                if (assessment.Type == "Performance Assessment" && assessment.Notification == true && assessment.DueDate == DateTime.Today)
+                {
+                    CrossLocalNotifications.Current.Show("Assessment Update!", assessment.AssessmentName.ToString() + " is due today!", a++);
+                }
+            }
         }
+
         public static async Task AddTerm(string name, DateTime start, DateTime end)
         {
             await Init();

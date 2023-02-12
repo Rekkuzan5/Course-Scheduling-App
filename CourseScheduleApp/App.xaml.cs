@@ -1,5 +1,4 @@
-﻿using CourseScheduleApp.Views;
-using System;
+﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -21,6 +20,7 @@ namespace CourseScheduleApp
         protected override void OnStart()
         {
         }
+
 
         protected override void OnSleep()
         {

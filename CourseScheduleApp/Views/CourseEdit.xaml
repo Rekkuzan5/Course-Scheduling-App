@@ -70,7 +70,7 @@
                 <Editor Text="{Binding Notes}" x:Name="EditNotes" Grid.Row="9" Grid.Column="1" />
 
                 <Label Grid.Row="10" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" >Start Notify</Label>
-                <Switch x:Name="NotificationEdit" Grid.Row="10" Grid.Column="1" />
+                <Switch x:Name="NotificationStart" Grid.Row="10" Grid.Column="1" />
 
                 <Label Grid.Row="11" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" >End Notify</Label>
                 <Switch x:Name="NotificationEnd" Grid.Row="11" Grid.Column="1" />

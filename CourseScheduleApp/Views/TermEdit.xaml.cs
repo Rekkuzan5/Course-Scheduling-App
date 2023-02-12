@@ -30,7 +30,7 @@ namespace CourseScheduleApp.Views
 
         async void SaveTerm_Clicked(object sender, EventArgs e)
         {
-            if (TermName.Text == null)
+            if (TermName.Text == "")
             {
                 await DisplayAlert("Error!", "Term name cannot be empty", "Ok");
 
@@ -61,7 +61,7 @@ namespace CourseScheduleApp.Views
         {
             var id = int.Parse(TermId.Text);
 
-            var confirmDelete = await DisplayAlert("Confirm", "Are you sure you wnat to delete this record?", "Ok", "Cancel");
+            var confirmDelete = await DisplayAlert("Confirm", "Are you sure you want to delete this record?", "Ok", "Cancel");
 
             if (confirmDelete)
             {

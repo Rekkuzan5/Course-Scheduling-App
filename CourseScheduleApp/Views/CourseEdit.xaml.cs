@@ -3,9 +3,10 @@ using CourseScheduleApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -38,7 +39,7 @@ namespace CourseScheduleApp.Views
 			InstructorEmail.Text = myCourse.InstructorEmail.ToString();
 			InstructorPhone.Text = myCourse.InstructorPhone.ToString();
 			EditNotes.Text = myCourse.Notes;
-			NotificationEdit.IsToggled = myCourse.NotificationStart;
+			NotificationStart.IsToggled = myCourse.NotificationStart;
 			NotificationEnd.IsToggled = myCourse.NotificationEnd;
 
 			foreach (var term in termList)
@@ -55,14 +56,14 @@ namespace CourseScheduleApp.Views
         {
 			Term t = (Term)TermSelect.SelectedItem;
 
-			if (/*!validEmail(InstructorEmail.Text) && */!IsValidPhoneNumber(InstructorPhone.Text))
-			{
-				await DisplayAlert("Error!", "Enter a valid phone number.", "Ok");
-				return;
-			}
-			else if (TermSelect.SelectedItem == null)
+			if (TermSelect.SelectedItem == null)
 			{
 				await DisplayAlert("Error!", "Please select a term.", "Ok");
+				return;
+			}
+			else if (CourseName.Text == "")
+			{
+				await DisplayAlert("Error!", "Please enter name for course.", "Ok");
 				return;
 			}
 			else if (CourseStatus.SelectedItem == null)
@@ -76,58 +77,71 @@ namespace CourseScheduleApp.Views
 
 				return;
 			}
-			else
+			else if (InstructorName.Text == "")
 			{
-				//if (EditNotes.Text != null)
-				//{
-				//	var answer = await DisplayAlert("Please Choose", "Would you like to send a Notification email?", "Yes", "No");
-				//	if (answer)
-				//	{
-				//		await SendEmail("You Have Notes", EditNotes.Text);
-				//	}
-				//}
-				await DatabaseService.UpdateCourse(Int32.Parse(CourseId.Text), t.ID, CourseName.Text, CourseStatus.SelectedItem.ToString(),
-									DateTime.Parse(CourseStart.Date.ToString()), DateTime.Parse(CourseEnd.Date.ToString()),
-									InstructorName.Text, InstructorEmail.Text, InstructorPhone.Text, EditNotes.Text,
-									NotificationEdit.IsToggled, NotificationEnd.IsToggled);
+				await DisplayAlert("Error!", "Course must have an Instructor assigned.", "Ok");
 
-				await Navigation.PopAsync();
-			}
-		}
-
-        async void CancelCourse_Clicked(object sender, EventArgs e)
-        {
-			await Navigation.PopAsync();
-		}
-
-        async void DeleteCourse_Clicked(object sender, EventArgs e)
-        {
-			var id = int.Parse(CourseId.Text);
-
-			var confirmDelete = await DisplayAlert("Confirm", "Are you sure you wnat to delete this record?", "Ok", "Cancel");
-
-			if (confirmDelete)
-			{
-				await DatabaseService.RemoveCourse(id);
-				await Navigation.PopAsync();
-			}
-			else
-			{
 				return;
 			}
+			else if (!ValidateEmail(InstructorEmail.Text) || !IsValidPhoneNumber(InstructorPhone.Text))
+			{
+				await DisplayAlert("Error!", "Enter a valid e-mail/phone number.", "Ok");
+				return;
+			}
+			else
+			{
+				//can use sms instead of email
+				if (EditNotes.Text != null)
+				{
+					var answer = await DisplayAlert("Please Choose", "Would you like to send a Notification email?", "Yes", "No");
+					if (answer)
+					{
+						await SendEmail("Course Notes", EditNotes.Text, InstructorEmail.Text);
+					}
+				}
+                await DatabaseService.UpdateCourse(Int32.Parse(CourseId.Text), t.ID, CourseName.Text, CourseStatus.SelectedItem.ToString(),
+                                    DateTime.Parse(CourseStart.Date.ToString()), DateTime.Parse(CourseEnd.Date.ToString()),
+                                    InstructorName.Text, InstructorEmail.Text, InstructorPhone.Text, EditNotes.Text,
+                                    NotificationStart.IsToggled, NotificationEnd.IsToggled);
+
+                await Navigation.PopAsync();
+			}
 		}
 
-		//public bool validEmail(string address)
-		//{
-		//	EmailAddressAttribute e = new EmailAddressAttribute();
-		//	if (e.IsValid(address))
-		//		return true;
-		//	else
-		//		DisplayAlert("Error!", "Enter a valid email address.", "Ok");
-		//	return false;
-		//}
+		public async Task SendEmail(string subject, string body, string recipient)
+		{
+			try
+			{
+				await Email.ComposeAsync("Course Notes", EditNotes.Text, InstructorEmail.Text);
+			}
+			catch (FeatureNotSupportedException)
+			{
+				// Email is not supported on this device
+				await DisplayAlert("Error!", "Email is not supported on this device.", "Ok");
+			}
+			catch (Exception)
+			{
+				// Some other exception occurred
+				await DisplayAlert("Error!", "Unable to process request.", "Ok");
+			}
+		}
 
-		// Validates that a good phone number is inputted
+
+		private bool ValidateEmail(string email)
+		{
+			try
+			{
+				MailAddress m = new MailAddress(email);
+
+				return true;
+			}
+			catch (Exception)
+			{
+				//DisplayAlert("Error!", "Enter a valid email address.", "Ok");
+				return false;
+			}
+		}
+
 		public static bool IsValidPhoneNumber(string phoneNumber)
 		{
 			if (string.IsNullOrWhiteSpace(phoneNumber))
@@ -138,30 +152,30 @@ namespace CourseScheduleApp.Views
 			var options = System.Text.RegularExpressions.RegexOptions.Compiled | System.Text.RegularExpressions.RegexOptions.IgnoreCase;
 			return System.Text.RegularExpressions.Regex.IsMatch(phoneNumber, pattern, options);
 		}
-		//public async Task SendEmail(string subject, string body)
-		//{
-		//	try
-		//	{
-		//		var message = new EmailMessage
-		//		{
-		//			Subject = subject,
-		//			Body = body,
-		//			//To = recipients,
 
-		//		};
-		//		await Email.ComposeAsync(message);
-		//	}
-		//	catch (FeatureNotSupportedException fbsEx)
-		//	{
-		//		// Email is not supported on this device
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		// Some other exception occurred
-		//	}
-		//}
+        async void CancelCourse_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PopAsync();
+        }
 
-		public async void CheckAss_Clicked(object sender, EventArgs e)
+        async void DeleteCourse_Clicked(object sender, EventArgs e)
+        {
+            var id = int.Parse(CourseId.Text);
+
+            var confirmDelete = await DisplayAlert("Confirm", "Are you sure you wnat to delete this record?", "Ok", "Cancel");
+
+            if (confirmDelete)
+            {
+                await DatabaseService.RemoveCourse(id);
+                await Navigation.PopAsync();
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        public async void CheckAss_Clicked(object sender, EventArgs e)
 		{
             var courseID = CourseId.Text;
 

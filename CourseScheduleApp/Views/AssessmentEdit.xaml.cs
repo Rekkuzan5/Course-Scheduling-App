@@ -84,14 +84,9 @@ namespace CourseScheduleApp.Views
                 else if ((performanceCount.Count == 1) && (objectiveCount.Count == 1))
                 {
                     await DisplayAlert("Notice", "Assessment type unchanged if course already contains both OA & PA", "Ok");
-                    //selectedAssessment.Type = AssessmentType.SelectedItem.ToString();
                     await DatabaseService.UpdateAssessment(Int32.Parse(AssessmentId.Text), c.ID, selectedAssessment.Type, AssessmentName.Text, DueDate.Date, NotifyEdit.IsToggled);
                     await Navigation.PopAsync();
                 }
-                //else
-                //{
-                //    await DisplayAlert("Error!", "You may only have one Objective Assessment for this course.", "Ok");
-                //}
             }
         }
 

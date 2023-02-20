@@ -19,6 +19,7 @@ namespace CourseScheduleApp.Services
         private static readonly string dbFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
         public static string dbPath = Path.Combine(dbFolderPath, dbFileName);
 
+        #region Start
         static async Task Init()
         {
             if (_db != null)
@@ -40,6 +41,8 @@ namespace CourseScheduleApp.Services
             var courseList = await GetCourses();
             var assessmentList = await GetAssessments();
 
+            // The following code block adds id's for notifications, id's cannot be shared between notifications, so assessments start at a
+            // much higher number than courses
             int c = 0;
             foreach (var course in courseList)
             {
@@ -66,6 +69,9 @@ namespace CourseScheduleApp.Services
                 }
             }
         }
+        #endregion
+
+        #region Terms
 
         public static async Task AddTerm(string name, DateTime start, DateTime end)
         {
@@ -112,6 +118,8 @@ namespace CourseScheduleApp.Services
                 await _db.UpdateAsync(termQuery);
             }
         }
+
+        #endregion
 
         #region Course Methods
 
@@ -261,7 +269,6 @@ namespace CourseScheduleApp.Services
 
         #endregion
 
-
         #region Demo Data
         public static async Task LoadSampleData()
         {
@@ -277,47 +284,49 @@ namespace CourseScheduleApp.Services
                 return;
             }
 
-            //Term term = new Term
-            //{
-            //    TermName = "Winter Term",
-            //    StartDate = new DateTime(2022, 12, 05),
-            //    EndDate = new DateTime(2023, 05, 05),
-            //};
-            //await _db.InsertAsync(term);
+            Term demoTerm = new Term
+            {
+                TermName = "Demo Intro Term",
+                StartDate = new DateTime(2023, 01, 01),
+                EndDate = new DateTime(2023, 05, 06),
+            };
+            await _db.InsertAsync(demoTerm);
 
-            //Course course1 = new Course
-            //{
-            //    TermID = term.ID,
-            //    Name = "Winter Course",
-            //    Status = "In Progress",
-            //    Start = new DateTime(2022, 12, 05),
-            //    End = new DateTime(2023, 01, 23),
-            //    InstructorName = "Kris French",
-            //    InstructorEmail = "kfren51@wgu.edu",
-            //    InstructorPhone = "360-969-0322",
-            //    Notes = " ",
-            //    NotificationStart = false,
-            //    NotificationEnd = false,
-            //};
-            //await _db.InsertAsync(course1);
+            Course demoCourse = new Course
+            {
+                TermID = demoTerm.ID,
+                Name = "Demo Course",
+                Status = "Planned",
+                Start = new DateTime(2023, 02, 20),
+                End = new DateTime(2023, 03, 10),
+                InstructorName = "Cameron Stapp",
+                InstructorEmail = "cstapp5@wgu.edu",
+                InstructorPhone = "417-880-3074",
+                Notes = " ",
+                NotificationStart = false,
+                NotificationEnd = false,
+            };
+            await _db.InsertAsync(demoCourse);
 
-            //    Assessment assessPA = new Assessment
-            //    {
-            //        CourseId = course1.Id,
-            //        TypeAssess = "Performance Assessment",
-            //        AssessDueDate = new DateTime(2023, 01, 23),
-            //        Notifications = false,
-            //    };
-            //    await _db.InsertAsync(assessPA);
+            Assessment demoAssessmentPA = new Assessment
+            {
+                CourseID = demoCourse.ID,
+                AssessmentName = $"DEMO-PA0001",
+                Type = "Performance Assessment",
+                DueDate = new DateTime(2023, 03, 10),
+                Notification = false,
+            };
+            await _db.InsertAsync(demoAssessmentPA);
 
-            //    Assessment assessOA = new Assessment
-            //    {
-            //        CourseId = course1.Id,
-            //        TypeAssess = "Objective Assessment",
-            //        AssessDueDate = new DateTime(2022, 12, 23),
-            //        Notifications = false,
-            //    };
-            //    await _db.InsertAsync(assessOA);
+            Assessment demoAssessmentOA = new Assessment
+            {
+                CourseID = demoCourse.ID,
+                AssessmentName = "DEMO-OA0001",
+                Type = "Objective Assessment",
+                DueDate = new DateTime(2023, 03, 10),
+                Notification = false,
+            };
+            await _db.InsertAsync(demoAssessmentOA);
 
         }
 
@@ -327,7 +336,7 @@ namespace CourseScheduleApp.Services
 
             await _db.DropTableAsync<Term>();
             await _db.DropTableAsync<Course>();
-            //await _db.DropTableAsync<Assessment>();
+            await _db.DropTableAsync<Assessment>();
 
             _db = null;
         }

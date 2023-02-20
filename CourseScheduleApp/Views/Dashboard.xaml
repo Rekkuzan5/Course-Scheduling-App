@@ -6,25 +6,6 @@
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             android:TabbedPage.ToolbarPlacement="Bottom"
             Title="WGU">
-    <!--<NavigationPage.TitleView>
-        <Label Text="WGU"/>
-    </NavigationPage.TitleView>
-    <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="ViewTerms" Text="View Terms" Clicked="ViewTerms_Clicked"></ToolbarItem>
-        <ToolbarItem x:Name="Courses" Text="Courses" Clicked="Courses_Clicked"></ToolbarItem>
-        <ToolbarItem x:Name="Assessments" Text="Assessments" Clicked="Assessments_Clicked"></ToolbarItem>
-        <ToolbarItem x:Name="Settings" Text="Settings" Clicked="Settings_Clicked" Order="Secondary"></ToolbarItem>
-    </ContentPage.ToolbarItems>
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome Night Owls!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand"
-				FontAttributes="Bold"
-				FontSize="Large"/>
-        </StackLayout>
-    </ContentPage.Content>-->
-    <!--Pages can be added as references or inline-->
     <TabBar>
         <ShellContent Title="Terms" Route="TermPage" ContentTemplate="{DataTemplate local:TermPage}">
             <ShellContent.Icon>

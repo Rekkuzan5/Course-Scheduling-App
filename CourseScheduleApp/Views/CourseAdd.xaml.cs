@@ -48,7 +48,7 @@ namespace CourseScheduleApp.Views
 			}
 			else if (AddCourseStart.Date > AddCourseEnd.Date)
 			{
-				await DisplayAlert("Error!", "Start date cannot be greater than end date", "Ok");
+				await DisplayAlert("Error!", "Start date cannot be after end date", "Ok");
 
 				return;
 			}

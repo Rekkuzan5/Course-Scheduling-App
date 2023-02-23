@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CourseScheduleApp.Views.TermEdit">
+             x:Class="CourseScheduleApp.Views.TermEdit"
+             Shell.BackgroundColor="#002e57">
 
             <ContentPage.ToolbarItems>
                 <ToolbarItem x:Name="SaveTerm" Text="Save" Clicked="SaveTerm_Clicked"	></ToolbarItem>

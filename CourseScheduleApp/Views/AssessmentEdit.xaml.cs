@@ -32,8 +32,10 @@ namespace CourseScheduleApp.Views
             AssessmentType.SelectedItem = selectedAssessment.Type;
             AssessmentName.Text = selectedAssessment.AssessmentName;
             CourseSelect.Title = "Course Select";
-            DueDate.Date = selectedAssessment.DueDate.Date;
-            NotifyEdit.IsToggled = selectedAssessment.Notification;
+            StartDate.Date = selectedAssessment.StartDate.Date;
+            StartDate.Date = selectedAssessment.StartDate.Date;
+            StartNotify.IsToggled = selectedAssessment.NotificationStart;
+            EndNotify.IsToggled = selectedAssessment.NotificationEnd;
 
             foreach (var course in courseList)
             {
@@ -64,6 +66,11 @@ namespace CourseScheduleApp.Views
                 await DisplayAlert("Error!", "Please select a course.", "Ok");
                 return;
             }
+            else if (StartDate.Date > DueDate.Date)
+            {
+                await DisplayAlert("Error!", "Start date cannot be after due date", "Ok");
+                return;
+            }
 
             using (SQLiteConnection con = new SQLiteConnection(Services.DatabaseService.dbPath))
             {
@@ -72,19 +79,19 @@ namespace CourseScheduleApp.Views
                 if (AssessmentType.SelectedItem.ToString() == "Objective Assessment" && objectiveCount.Count == 0)
                 {
                     selectedAssessment.Type = AssessmentType.SelectedItem.ToString();
-                    await DatabaseService.UpdateAssessment(Int32.Parse(AssessmentId.Text), c.ID, selectedAssessment.Type, AssessmentName.Text, DueDate.Date, NotifyEdit.IsToggled);
+                    await DatabaseService.UpdateAssessment(Int32.Parse(AssessmentId.Text), c.ID, selectedAssessment.Type, AssessmentName.Text, StartDate.Date, DueDate.Date, StartNotify.IsToggled, EndNotify.IsToggled);
                     await Navigation.PopAsync();
                 }
                 else if (AssessmentType.SelectedItem.ToString() == "Performance Assessment" && performanceCount.Count == 0)
                     {
                     selectedAssessment.Type = AssessmentType.SelectedItem.ToString();
-                    await DatabaseService.UpdateAssessment(Int32.Parse(AssessmentId.Text), c.ID, selectedAssessment.Type, AssessmentName.Text, DueDate.Date, NotifyEdit.IsToggled);
+                    await DatabaseService.UpdateAssessment(Int32.Parse(AssessmentId.Text), c.ID, selectedAssessment.Type, AssessmentName.Text, StartDate.Date, DueDate.Date, StartNotify.IsToggled, EndNotify.IsToggled);
                     await Navigation.PopAsync();
                 }
                 else if ((performanceCount.Count == 1) && (objectiveCount.Count == 1))
                 {
                     await DisplayAlert("Notice", "Assessment type unchanged if course already contains both OA & PA", "Ok");
-                    await DatabaseService.UpdateAssessment(Int32.Parse(AssessmentId.Text), c.ID, selectedAssessment.Type, AssessmentName.Text, DueDate.Date, NotifyEdit.IsToggled);
+                    await DatabaseService.UpdateAssessment(Int32.Parse(AssessmentId.Text), c.ID, selectedAssessment.Type, AssessmentName.Text, StartDate.Date, DueDate.Date, StartNotify.IsToggled, EndNotify.IsToggled);
                     await Navigation.PopAsync();
                 }
             }
@@ -110,6 +117,11 @@ namespace CourseScheduleApp.Views
             {
                 return;
             }
+        }
+
+        private void StartDate_DateSelected(object sender, DateChangedEventArgs e)
+        {
+
         }
         private void DueDate_DateSelected(object sender, DateChangedEventArgs e)
         {

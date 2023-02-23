@@ -13,10 +13,10 @@ namespace CourseScheduleApp
             MainPage = new Dashboard();
         }
 
-        protected override void OnStart()
+        protected override async void OnStart()
         {
             // ** Have to run this method in the OnStart method of the application because OnAppearing does not work with Shell types in Xaml** //
-            DatabaseService.LoadSampleData();
+            await DatabaseService.LoadSampleData();
         }
 
 

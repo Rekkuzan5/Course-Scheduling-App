@@ -5,8 +5,14 @@
             xmlns:local="clr-namespace:CourseScheduleApp.Views"
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             android:TabbedPage.ToolbarPlacement="Bottom"
+            Shell.BackgroundColor="#002e57"
             Title="WGU">
     <TabBar>
+        <ShellContent Title="Home" ContentTemplate="{DataTemplate local:Welcome}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="FASolid" Glyph="&#xf015;" />
+            </ShellContent.Icon>
+        </ShellContent>
         <ShellContent Title="Terms" Route="TermPage" ContentTemplate="{DataTemplate local:TermPage}">
             <ShellContent.Icon>
                 <FontImageSource FontFamily="FARegular" Glyph="&#xf022;" />

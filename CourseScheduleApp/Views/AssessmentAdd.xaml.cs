@@ -44,6 +44,11 @@ namespace CourseScheduleApp.Views
                 await DisplayAlert("Error!", "Please select a course.", "Ok");
                 return;
             }
+            else if (AddStartDate.Date > AddDueDate.Date)
+            {
+                await DisplayAlert("Error!", "Start date cannot be after due date", "Ok");
+                return;
+            }
 
             var getList = await DatabaseService.GetAssessment(c.ID);
             int o = 0;
@@ -74,8 +79,8 @@ namespace CourseScheduleApp.Views
 
             else
             {
-                await DatabaseService.AddAssessment(c.ID, (string)TypeAssess.SelectedItem, AssessNameAdd.Text,
-                                        AddDueDate.Date, NotificationAdd.IsToggled);
+                await DatabaseService.AddAssessment(c.ID, (string)TypeAssess.SelectedItem, AssessNameAdd.Text, AddStartDate.Date,
+                                        AddDueDate.Date, NotificationStart.IsToggled, NotificationEnd.IsToggled);
                 await Navigation.PopAsync();
             }
 
@@ -87,6 +92,11 @@ namespace CourseScheduleApp.Views
 
         }
         private void AddDueDate_DateSelected(object sender, DateChangedEventArgs e)
+        {
+
+        }
+
+        private void AddStartDate_DateSelected(object sender, DateChangedEventArgs e)
         {
 
         }

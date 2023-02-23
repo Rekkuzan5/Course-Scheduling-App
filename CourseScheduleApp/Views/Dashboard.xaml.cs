@@ -51,7 +51,7 @@ namespace CourseScheduleApp
         }
         async void Settings_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new AppSettings());
+            await Navigation.PushAsync(new Welcome());
         }
     }
 }

@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CourseScheduleApp.Views.AssessmentEdit">
+             x:Class="CourseScheduleApp.Views.AssessmentEdit"
+             Shell.BackgroundColor="#002e57">
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="SaveEdit" Text="Save" Clicked="SaveEdit_Clicked"></ToolbarItem>
         <ToolbarItem x:Name="CancelEdit" Text="Cancel" Clicked="CancelEdit_Clicked"></ToolbarItem>
@@ -17,10 +18,11 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition Width="150" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
@@ -41,11 +43,17 @@
                 <Label Grid.Row="3" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Course</Label>
                 <Picker x:Name="CourseSelect" Title="CourseSel" ItemDisplayBinding="{Binding Name}" Grid.Row="3" Grid.Column="1"/>
 
-                <Label Grid.Row="4" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Due Date</Label>
-                <DatePicker x:Name="DueDate" Grid.Row="4" Grid.Column="1" DateSelected="DueDate_DateSelected"/>
+                <Label Grid.Row="4" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Start Date</Label>
+                <DatePicker x:Name="StartDate" Grid.Row="4" Grid.Column="1" DateSelected="StartDate_DateSelected"/>
 
-                <Label Grid.Row="5" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Notifications</Label>
-                <Switch x:Name="NotifyEdit" Grid.Row="5" Grid.Column="1" />
+                <Label Grid.Row="5" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Due Date</Label>
+                <DatePicker x:Name="DueDate" Grid.Row="5" Grid.Column="1" DateSelected="DueDate_DateSelected"/>
+
+                <Label Grid.Row="6" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Start Notifications</Label>
+                <Switch x:Name="StartNotify" Grid.Row="6" Grid.Column="1" />
+
+                <Label Grid.Row="7" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Due Notifications</Label>
+                <Switch x:Name="EndNotify" Grid.Row="7" Grid.Column="1" />
             </Grid>
         </StackLayout>
     </ContentPage.Content>

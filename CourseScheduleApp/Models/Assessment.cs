@@ -12,8 +12,10 @@ namespace CourseScheduleApp.Models
         public int CourseID { get; set; }   // Foreign Key
         public string AssessmentName { get; set; }
         public string Type { get; set; }
+        public DateTime StartDate { get; set; }
         public DateTime DueDate { get; set; }
-        public bool Notification { get; set; }
+        public bool NotificationStart { get; set; }
+        public bool NotificationEnd { get; set; }
 
     }
 }

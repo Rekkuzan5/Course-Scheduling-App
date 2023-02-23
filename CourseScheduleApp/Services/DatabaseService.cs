@@ -59,11 +59,19 @@ namespace CourseScheduleApp.Services
             int a = 1000;
             foreach (var assessment in assessmentList)
             {
-                if (assessment.Type == "Objective Assessment" && assessment.Notification == true && assessment.DueDate == DateTime.Today)
+                if (assessment.Type == "Objective Assessment" && assessment.NotificationStart == true && assessment.StartDate == DateTime.Today)
+                {
+                    CrossLocalNotifications.Current.Show("Assessment Update!", assessment.AssessmentName.ToString() + " begins today!", a++);
+                }
+                if (assessment.Type == "Objective Assessment" && assessment.NotificationEnd == true && assessment.DueDate == DateTime.Today)
                 {
                     CrossLocalNotifications.Current.Show("Assessment Update!", assessment.AssessmentName.ToString() + " is due today!", a++);
                 }
-                if (assessment.Type == "Performance Assessment" && assessment.Notification == true && assessment.DueDate == DateTime.Today)
+                if (assessment.Type == "Performance Assessment" && assessment.NotificationStart == true && assessment.StartDate == DateTime.Today)
+                {
+                    CrossLocalNotifications.Current.Show("Assessment Update!", assessment.AssessmentName.ToString() + " begins today!", a++);
+                }
+                if (assessment.Type == "Performance Assessment" && assessment.NotificationEnd == true && assessment.DueDate == DateTime.Today)
                 {
                     CrossLocalNotifications.Current.Show("Assessment Update!", assessment.AssessmentName.ToString() + " is due today!", a++);
                 }
@@ -204,7 +212,7 @@ namespace CourseScheduleApp.Services
         #endregion
 
         #region Assessment Methods
-        public static async Task AddAssessment(int courseId, string asessType, string assessmentName, DateTime dueDate, bool assessNotify)
+        public static async Task AddAssessment(int courseId, string asessType, string assessmentName, DateTime startDate, DateTime dueDate, bool startNotify, bool endNotify)
         {
             await Init();
 
@@ -213,8 +221,10 @@ namespace CourseScheduleApp.Services
                 CourseID = courseId,
                 Type = asessType,
                 AssessmentName = assessmentName,
+                StartDate = startDate,
                 DueDate = dueDate,
-                Notification = assessNotify,
+                NotificationStart = startNotify,
+                NotificationEnd = endNotify,
             };
 
             await _db.InsertAsync(assessment);
@@ -247,7 +257,7 @@ namespace CourseScheduleApp.Services
             return assessments;
         }
 
-        public static async Task UpdateAssessment(int id, int courseId, string assessmentType, string assessmentName, DateTime dueDate, bool assessNotify)
+        public static async Task UpdateAssessment(int id, int courseId, string assessmentType, string assessmentName, DateTime startDate, DateTime dueDate, bool startNotify, bool endNotify)
         {
             await Init();
 
@@ -260,8 +270,10 @@ namespace CourseScheduleApp.Services
                 assessQuery.CourseID = courseId;
                 assessQuery.AssessmentName = assessmentName;
                 assessQuery.Type = assessmentType;
+                assessQuery.StartDate = startDate;
                 assessQuery.DueDate = dueDate;
-                assessQuery.Notification = assessNotify;
+                assessQuery.NotificationStart = startNotify;
+                assessQuery.NotificationEnd = endNotify;
 
                 await _db.UpdateAsync(assessQuery);
             }
@@ -313,8 +325,10 @@ namespace CourseScheduleApp.Services
                 CourseID = demoCourse.ID,
                 AssessmentName = $"DEMO-PA0001",
                 Type = "Performance Assessment",
-                DueDate = new DateTime(2023, 03, 10),
-                Notification = false,
+                StartDate = new DateTime(2023, 02, 23),
+                DueDate = new DateTime(2023, 03, 23),
+                NotificationStart= false,
+                NotificationEnd = false,
             };
             await _db.InsertAsync(demoAssessmentPA);
 
@@ -323,8 +337,10 @@ namespace CourseScheduleApp.Services
                 CourseID = demoCourse.ID,
                 AssessmentName = "DEMO-OA0001",
                 Type = "Objective Assessment",
-                DueDate = new DateTime(2023, 03, 10),
-                Notification = false,
+                StartDate = new DateTime(2023, 02, 23),
+                DueDate = new DateTime(2023, 03, 23),
+                NotificationStart = true,
+                NotificationEnd = true,
             };
             await _db.InsertAsync(demoAssessmentOA);
 

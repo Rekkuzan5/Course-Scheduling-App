@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace CourseScheduleApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AppSettings : ContentPage
+    public partial class Welcome : ContentPage
     {
-        public AppSettings()
+        public Welcome()
         {
             InitializeComponent();
         }

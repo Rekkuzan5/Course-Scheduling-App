@@ -6,26 +6,27 @@
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             android:TabbedPage.ToolbarPlacement="Bottom"
             Shell.BackgroundColor="#002e57"
+            Shell.ForegroundColor="white"
             Title="WGU">
     <TabBar>
-        <ShellContent Title="Home" ContentTemplate="{DataTemplate local:Welcome}">
+        <ShellContent Shell.TabBarUnselectedColor="white" Shell.TabBarTitleColor="#ffec00" Title="Home" ContentTemplate="{DataTemplate local:Welcome}">
             <ShellContent.Icon>
                 <FontImageSource FontFamily="FASolid" Glyph="&#xf015;" />
             </ShellContent.Icon>
         </ShellContent>
-        <ShellContent Title="Terms" Route="TermPage" ContentTemplate="{DataTemplate local:TermPage}">
+        <ShellContent Shell.TabBarUnselectedColor="white" Shell.TabBarTitleColor="#ffec00" Title="Terms" Route="TermPage" ContentTemplate="{DataTemplate local:TermPage}">
             <ShellContent.Icon>
                 <FontImageSource FontFamily="FARegular" Glyph="&#xf022;" />
             </ShellContent.Icon>
             <!--<local:TermPage Title="WGU" />-->
-        </ShellContent> 
-        <ShellContent Title="Courses" Route="CoursePage" ContentTemplate="{DataTemplate local:CoursePage}">
+        </ShellContent>
+        <ShellContent Shell.TabBarUnselectedColor="white" Shell.TabBarTitleColor="#ffec00" Title="Courses" Route="CoursePage" ContentTemplate="{DataTemplate local:CoursePage}">
             <ShellContent.Icon>
                 <FontImageSource FontFamily="FASolid" Glyph="&#xf518;" />
             </ShellContent.Icon>
             <!--<local:TermPage Title="WGU" />-->
-        </ShellContent> 
-        <ShellContent Title="Assessments" Route="AssessmentPage" ContentTemplate="{DataTemplate local:AssessmentPage}">
+        </ShellContent>
+        <ShellContent Shell.TabBarUnselectedColor="white" Shell.TabBarTitleColor="#ffec00" Title="Assessments" Route="AssessmentPage" ContentTemplate="{DataTemplate local:AssessmentPage}">
             <ShellContent.Icon>
                 <FontImageSource FontFamily="FARegular" Glyph="&#xf15b;" />
             </ShellContent.Icon>

@@ -11,6 +11,7 @@ namespace CourseScheduleApp
         {
             InitializeComponent();
             MainPage = new Dashboard();
+            
         }
 
         protected override async void OnStart()

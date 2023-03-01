@@ -162,7 +162,7 @@ namespace CourseScheduleApp.Views
         {
             var id = int.Parse(CourseId.Text);
 
-            var confirmDelete = await DisplayAlert("Confirm", "Are you sure you wnat to delete this record?", "Ok", "Cancel");
+            var confirmDelete = await DisplayAlert("Confirm", "Are you sure you wnat to delete this course?", "Ok", "Cancel");
 
             if (confirmDelete)
             {

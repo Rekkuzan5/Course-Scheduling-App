@@ -38,7 +38,7 @@ namespace CourseScheduleApp.Views
             }
             if (TermStart.Date >= TermEnd.Date)
             {
-                await DisplayAlert("Error!", "Start date cannot be greater than end date", "Ok");
+                await DisplayAlert("Error!", "Start date cannot be later than end date", "Ok");
 
                 return;
             }
@@ -61,7 +61,7 @@ namespace CourseScheduleApp.Views
         {
             var id = int.Parse(TermId.Text);
 
-            var confirmDelete = await DisplayAlert("Confirm", "Are you sure you want to delete this record?", "Ok", "Cancel");
+            var confirmDelete = await DisplayAlert("Confirm", "Are you sure you want to delete this term?", "Ok", "Cancel");
 
             if (confirmDelete)
             {

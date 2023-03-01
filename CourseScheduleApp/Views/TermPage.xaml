@@ -2,7 +2,15 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CourseScheduleApp.Views.TermPage"
-             Shell.BackgroundColor="#002e57">
+             Shell.BackgroundColor="#002e57"
+             Shell.ForegroundColor="White">
+    <Shell.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Image Source="icon.png"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="Start" />
+        </StackLayout>
+    </Shell.TitleView>
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="AddTerm" Text="Add Term" Clicked="AddTerm_Clicked"></ToolbarItem>
     </ContentPage.ToolbarItems>
@@ -11,15 +19,15 @@
 						BindableLayout.ItemsSource="{Binding Terms}"
 						EmptyView="No Terms to Display"
 						SelectionMode="Single"
-						SelectionChanged="TermCollectionView_SelectionChanged">
+						SelectionChanged="TermCollectionView_SelectionChanged" Margin="0,10">
         <CollectionView.ItemsLayout>
             <LinearItemsLayout Orientation="Vertical" ItemSpacing="5" />
         </CollectionView.ItemsLayout>
 
         <CollectionView.ItemTemplate>
             <DataTemplate>
-                <StackLayout>
-                    <Frame HasShadow="True" CornerRadius="20" BackgroundColor="WhiteSmoke" HeightRequest="90" Margin="10, 0" Padding="20" IsClippedToBounds="False" BorderColor="CornflowerBlue">
+                <StackLayout Padding="0">
+                    <Frame HasShadow="True" CornerRadius="20" BackgroundColor="WhiteSmoke" HeightRequest="90" Margin="10,0" Padding="20" IsClippedToBounds="False" BorderColor="CornflowerBlue">
                     <StackLayout>
                             <Label Text="{Binding TermName}"
                                FontSize="Medium"

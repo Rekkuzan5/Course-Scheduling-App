@@ -1,8 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CourseScheduleApp.Views.AssessmentPage"
-             Shell.BackgroundColor="#002e57">
+             x:Class="CourseScheduleApp.Views.AssessmentPage">
+    <Shell.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Image Source="icon.png"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="Start" />
+        </StackLayout>
+    </Shell.TitleView>
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="AddAsses" Text="Add Assessment" Clicked="AddAssessment_Clicked"></ToolbarItem>
     </ContentPage.ToolbarItems>
@@ -11,16 +17,16 @@
 					ItemsSource="{Binding Assessment}"
 					EmptyView="No Assessments to Display"
 					SelectionMode="Single"
-					SelectionChanged="AssessmentCollectionView_SelectionChanged">
+					SelectionChanged="AssessmentCollectionView_SelectionChanged" Margin="0,10">
 
         <CollectionView.ItemsLayout>
-            <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+            <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
         </CollectionView.ItemsLayout>
 
         <CollectionView.ItemTemplate>
             <DataTemplate>
                 <StackLayout>
-                    <Frame HasShadow="True" CornerRadius="20" BackgroundColor="WhiteSmoke" HeightRequest="110" Margin="10, 0" Padding="20,20,20,20" IsClippedToBounds="True" BorderColor="CornflowerBlue">
+                    <Frame HasShadow="True" CornerRadius="20" BackgroundColor="WhiteSmoke" HeightRequest="110" Margin="10,0" Padding="20,20,20,20" IsClippedToBounds="True" BorderColor="CornflowerBlue">
                         <StackLayout>
 
                             <Label Text="{Binding AssessmentName}"

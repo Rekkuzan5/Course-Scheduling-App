@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CourseScheduleApp.Views.AssessmentEdit"
-             Shell.BackgroundColor="#002e57">
+             x:Class="CourseScheduleApp.Views.AssessmentEdit">
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="SaveEdit" Text="Save" Clicked="SaveEdit_Clicked"></ToolbarItem>
         <ToolbarItem x:Name="CancelEdit" Text="Cancel" Clicked="CancelEdit_Clicked"></ToolbarItem>
